@@ -1,0 +1,111 @@
+﻿@model IEnumerable<BusinessObject.Model.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<a style="color: red; margin-right:10px;" asp-action="Logout">Logout</a>
+@if (ViewBag.IsAdmin == 1)
+{
+    <a style="margin-right:10px" href="./users">User</a>
+    <a style="margin-right:10px" href="./publishers">Publisher</a>
+    <a style="margin-right:10px" href="./authors">Author</a>
+}
+else
+{
+    <a style="margin-right:10px" href="./users/edit/@ViewBag.UserId">User</a>
+}
+<a style="margin-right:10px" href="./books">Book</a>
+<h1>Book Stores</h1>
+
+
+@if (ViewBag.IsAdmin == 1)
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+  <form asp-action="Search">
+    <div style="display: flex;align-items:center;" class="form-group">
+    <label for="search">Search BookName and Price:</label>
+        <input style="width: 200px; margin-left: 10px;  margin-right: 10px" type="text" name="search" id="search" class="form-control" />
+        <button type="submit" class="btn btn-primary">Search</button>
+</div>
+ </form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Advance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Royalty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YtdSale)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PublishedDate)
+            </th>
+                    @if (ViewBag.IsAdmin == 1)
+            {
+                <th></th>
+            }
+
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Advance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Royalty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YtdSale)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishedDate)
+            </td>
+           
+                    @if (ViewBag.IsAdmin == 1)
+                    {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.BookId">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.BookId">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.BookId">Delete</a>
+                    </td>
+                    }
+
+         
+        </tr>
+}
+    </tbody>
+</table>

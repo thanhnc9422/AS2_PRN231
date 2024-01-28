@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BusinessObject.Model.Publisher>
+<a style="color: red; margin-right:10px;" asp-action="Logout">Logout</a>
+@{
+    ViewData["Title"] = "Index";
+}
+@if (ViewBag.IsAdmin == 1)
+{
+    <a style="margin-right:10px" href="./users">User</a>
+    <a style="margin-right:10px" href="./publishers">Publisher</a>
+    <a style="margin-right:10px" href="./authors">Author</a>
+}
+else
+{
+    <a style="margin-right:10px" href="./users/edit/@ViewBag.UserId">User</a>
+}
+
+<a style="margin-right:10px" href="./books">Book</a>
+<h1>Book Stores</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PublishserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PubId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PubId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PubId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
